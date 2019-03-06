@@ -38,10 +38,34 @@ switch (strtolower($message['text'])) {
                     'text' => 'Your MID is ' . $message->getFromid();
                 )
             )
-        ))
+        ));
         break;
     
+    case 'jc@test':
+        $client->replyMessage(array(
+            'replyToken' => $event['replyToken'],
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => 'test successful'
+                )
+            )
+        ));
+        break;
+
     default:
         # code...
         break;
 }
+
+/**
+$client->replyMessage(array(
+            'replyToken' => $event['replyToken'],
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => ''
+                )
+            )
+        ))
+*/
