@@ -17,15 +17,31 @@
 }
 ==============================
 */
-if (strtolower($message['text']) == "text" || $message['text'] == "文字"){
-    $client->replyMessage(array(
-        'replyToken' => $event['replyToken'],
-        'messages' => array(
-            array(
-                'type' => 'text', // 訊息類型 (文字)
-                'text' => 'Hello, world!' // 回復訊息
+// if (strtolower($message['text']) == "text" || $message['text'] == "文字"){
+//     $client->replyMessage(array(
+//         'replyToken' => $event['replyToken'],
+//         'messages' => array(
+//             array(
+//                 'type' => 'text', // 訊息類型 (文字)
+//                 'text' => 'Hello, world!' // 回復訊息
+//             )
+//         )
+//     ));
+// }
+switch (strtolower($message['text'])) {
+    case 'jc@mid':
+        $client->replyMessage(array(
+            'replyToken' => $event['replyToken'],
+            'messages' => array(
+                array(
+                    'type' => 'text',
+                    'text' => 'Your MID is ' . $message->getFromid();
+                )
             )
-        )
-    ));
+        ))
+        break;
+    
+    default:
+        # code...
+        break;
 }
-?>
