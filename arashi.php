@@ -35,7 +35,7 @@ return [
 }
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-$set    = json_decode(fopen('set.json', 'a+'));
+$set    = json_decode(file_get_contents('set.json'));
 
 foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
