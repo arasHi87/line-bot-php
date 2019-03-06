@@ -18,8 +18,7 @@ if (file_exists(__DIR__ . '/config.php')) {
 return [
     'channelAccessToken' => '',
     'channelSecret' => ''
-];
-?>";
+];";
     fwrite($configFile, $configFileContent); // 建立文件並寫入
     fclose($configFile); // 關閉文件
     error_log("config.php 設定檔建立成功，請編輯檔案輸入 channelAccessToken 和 channelSecret！", 0); // 輸出錯誤
@@ -34,16 +33,33 @@ foreach ($client->parseEvents() as $event) {
             $message = $event['message'];
             switch ($message['type']) {
                 case 'text':
-                    if (strtolower($message['text']) == 'text') {
-                        $client->replyMessage([
-                            'replyToken' => $event['replyToken'],
-                            'messages'   => [
-                                [
-                                    'type' => 'text',
-                                    'text' => 'Hello world!'
+                    // if (strtolower($message['text']) == 'text') {
+                    //     $client->replyMessage([
+                    //         'replyToken' => $event['replyToken'],
+                    //         'messages'   => [
+                    //             [
+                    //                 'type' => 'text',
+                    //                 'text' => 'Hello world!'
+                    //             ]
+                    //         ]
+                    //     ]);
+                    // }
+                    switch (strtolower($message['text'])) {
+                        case 'js@test':
+                            $client->replyMessage([
+                                'replyToken' => $event['replyToken'],
+                                'messages'   => [
+                                    [
+                                        'type' => 'text',
+                                        'text' => 'Test Successful!'
+                                    ]
                                 ]
-                            ]
-                        ]);
+                            ]);
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
                     }
                     break;
 
@@ -59,15 +75,15 @@ foreach ($client->parseEvents() as $event) {
         
         default:
             //error_log("Unsupporeted event type: " . $event['type']);
-            $client->replyMessage(array(
+            $client->replyMessage([
                 'replyToken' => $event['replyToken'],
-                'messages' => array(
-                    array(
+                'messages'   => [
+                    [
                         'type' => 'text',
                         'text' => $set->hello
-                    )
-                )
-            ));
+                    ]
+                ]
+            ]);
             break;
     }
 };
