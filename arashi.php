@@ -24,15 +24,6 @@ if (file_exists(__DIR__ . '/config.php')) {
 } else {
     $configFile = fopen("config.php", "w") or die("Unable to open file!");
     $configFileContent = "<?php
-/**
- * Copyright 2017 GoneTone
- *
- * Line Bot
- * 範例 Example Bot 配置文件
- *
- * 此範例 GitHub 專案：https://github.com/GoneTone/line-example-bot-php
- * 官方文檔：https://devdocs.line.me/en/
- */
 return [
     'channelAccessToken' => '',
     'channelSecret' => ''
@@ -44,6 +35,8 @@ return [
 }
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
+$set    = json_decode(fopen('set.json', 'a+'));
+
 foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
         case 'message':
@@ -74,14 +67,10 @@ foreach ($client->parseEvents() as $event) {
                 'messages' => array(
                     array(
                         'type' => 'text',
-                        'text' => '大家好，這是一個範例 Bot OuO
-
-範例程式開源至 GitHub (包含教學)：
-https://github.com/GoneTone/line-example-bot-php'
+                        'text' => $set->hello
                     )
                 )
             ));
             break;
     }
 };
-?>
