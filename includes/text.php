@@ -58,7 +58,7 @@ switch (strtolower($message['text'])) {
         break;
 }
 
-/**
+/*
 $client->replyMessage(array(
             'replyToken' => $event['replyToken'],
             'messages' => array(
